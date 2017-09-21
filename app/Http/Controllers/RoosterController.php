@@ -76,6 +76,7 @@ class RoosterController extends Controller
         $roosterData = unserialize($request->post('rooster-data'));
         $selectedRooster = $roosterData[$roosterIndex];
 
+        $previousMonth = null;
         $calendar = new \Eluceo\iCal\Component\Calendar('zsm-rooster.unxsist.nl');
         foreach ($selectedRooster->roosterPerDag as $dagRooster) {
             /** @var \Carbon\Carbon $dagRoosterDatum */
@@ -84,6 +85,11 @@ class RoosterController extends Controller
             /** @var \Carbon\Carbon $dagRoosterDatumEinde */
             $dagRoosterDatumEinde = clone $dagRooster['datum'];
             $dagRoosterDatumEinde->setTimezone(new \DateTimeZone('Europe/Amsterdam'));
+
+            if ($dagRoosterDatum->month == 1 && \Carbon\Carbon::now()->month > 1) {
+                $dagRoosterDatum->addYear(1);
+                $dagRoosterDatumEinde->addYear(1);
+            }
 
             if ($dagRooster['werkType'] != null) {
                 $event = new \Eluceo\iCal\Component\Event();
