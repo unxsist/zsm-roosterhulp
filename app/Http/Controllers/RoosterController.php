@@ -75,7 +75,6 @@ class RoosterController extends Controller
         /** @var \App\Objects\Rooster[] $roosterData */
         $roosterData = unserialize($request->post('rooster-data'));
         $selectedRooster = $roosterData[$roosterIndex];
-        dd($roosterData);
 
         $previousMonth = null;
         $calendar = new \Eluceo\iCal\Component\Calendar('zsm-rooster.unxsist.nl');
