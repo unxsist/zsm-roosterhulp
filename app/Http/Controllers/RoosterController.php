@@ -75,6 +75,7 @@ class RoosterController extends Controller
         /** @var \App\Objects\Rooster[] $roosterData */
         $roosterData = unserialize($request->post('rooster-data'));
         $selectedRooster = $roosterData[$roosterIndex];
+        dd($roosterData);
 
         $previousMonth = null;
         $calendar = new \Eluceo\iCal\Component\Calendar('zsm-rooster.unxsist.nl');
@@ -148,6 +149,10 @@ class RoosterController extends Controller
                     case 'O04':
                         $dagRoosterDatum->setTime(7, 0);
                         $dagRoosterDatumEinde->setTime(11, 0);
+                        break;
+                    case 'AB1':
+                        $dagRoosterDatum->setTime(16, 0);
+                        $dagRoosterDatumEinde->setTime(19, 30);
                         break;
                     default:
                         $fullDay = true;
